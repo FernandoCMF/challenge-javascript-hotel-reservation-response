@@ -1,41 +1,40 @@
-/*
- Verificar quando for finais de semena 
- 
- Verificar quando o valueTotal for igual
- E descobrir como fazer teste unitario
- Verificar se e possivel fazer uns input sem interface
-*/
-
 var user = {
   typeClient: 'Regular',
 };
 
 var Lakewood = {
   classification: 3,
+  nameHotel: 'Lakewood',
   rateWeekCN: 110, // 110
   rateWeekPF: 80,
   rateWeekendCN: 90,
   rateWeekendPF: 80,
-  valueTotal: '',
+  valueTotal: 0,
 };
 
 var Bridgewood = {
   classification: 4,
+  nameHotel: 'Bridgewood',
   rateWeekCN: 160, // 160
   rateWeekPF: 110,
   rateWeekendCN: 60,
   rateWeekendPF: 50,
-  valueTotal: '',
+  valueTotal: 0,
 };
 
 var Ridgewood = {
   classification: 5,
+  nameHotel: 'Ridgewood',
   rateWeekCN: 220, //220
   rateWeekPF: 100,
   rateWeekendCN: 140,
   rateWeekendPF: 40,
-  valueTotal: '',
+  valueTotal: 0,
 };
+
+const date = new Date();
+const options = { weekday: 'long' };
+date.toLocaleDateString('en-US', options);
 
 function calculateDateDiff() {
   let dataInicial = new Date('2009-03-13');
@@ -50,9 +49,6 @@ function calculateDateDiff() {
 
 function valueLakewood() {
   let result;
-  let date = new Date();
-  let options = { weekday: 'long' };
-  date.toLocaleDateString('en-US', options);
 
   if (user.typeClient === 'Regular') {
     if (options.weekday === 'Saturday' || options.weekday === 'Sunday') {
@@ -69,66 +65,66 @@ function valueLakewood() {
   } else {
     console.log('Client not exist');
   }
-
+  Lakewood.valueTotal = result;
   return result;
 }
 
 function valueBridgewood() {
   let result;
+
   if (user.typeClient === 'Regular') {
-    result = calculateDateDiff() * Bridgewood.rateWeekCN;
+    if (options.weekday === 'Saturday' || options.weekday === 'Sunday') {
+      result = calculateDateDiff() * Bridgewood.rateWeekendCN;
+    } else {
+      result = calculateDateDiff() * Bridgewood.rateWeekCN;
+    }
   } else if (user.typeClient === 'Rewards') {
-    result = calculateDateDiff() * Bridgewood.rateWeekPF;
+    if (options.weekday === 'Saturday' || options.weekday === 'Sunday') {
+      result = calculateDateDiff() * Bridgewood.rateWeekendPF;
+    } else {
+      result = calculateDateDiff() * Bridgewood.rateWeekPF;
+    }
   } else {
     console.log('Client not exist');
   }
-
+  Bridgewood.valueTotal = result;
   return result;
 }
 
 function valueRidgewood() {
   let result;
   if (user.typeClient === 'Regular') {
-    result = calculateDateDiff() * Ridgewood.rateWeekCN;
+    if (options.weekday === 'Saturday' || options.weekday === 'Sunday') {
+      result = calculateDateDiff() * Ridgewood.rateWeekendCN;
+    } else {
+      result = calculateDateDiff() * Ridgewood.rateWeekCN;
+    }
   } else if (user.typeClient === 'Rewards') {
-    result = calculateDateDiff() * Ridgewood.rateWeekPF;
+    if (options.weekday === 'Saturday' || options.weekday === 'Sunday') {
+      result = calculateDateDiff() * Ridgewood.rateWeekendPF;
+    } else {
+      result = calculateDateDiff() * Ridgewood.rateWeekPF;
+    }
   } else {
     console.log('Client not exist');
   }
 
+  Ridgewood.valueTotal = result;
   return result;
 }
 
-// function checkClassification() {
-//   let result;
-
-//   let arr = [
-//     Lakewood.classification,
-//     Bridgewood.classification,
-//     Ridgewood.classification,
-//   ];
-
-//   let higherValue = Math.max(...arr);
-
-//   result = higherValue;
-
-//   return result;
-// }
-
 function checkEqualValue() {
-  let tempResult = lowerValueHotel;
-  let result;
-
   let Values = [valueLakewood(), valueBridgewood(), valueRidgewood()];
-  let valuesRepeat = [];
+  let repeatValue = Values.slice().sort();
+  let result = [];
 
-  Values.forEach((item) => {
-    if (!valuesRepeat.includes(item)) {
-      valuesRepeat.push(item);
+  let checkValue = [Lakewood, Bridgewood, Ridgewood];
+
+  for (var i = 0; i < repeatValue.length - 1; i++) {
+    if (repeatValue[i + 1] == repeatValue[i]) {
+      result.push(`${checkValue[i].classification}`);
     }
-  });
-
-  return valuesRepeat;
+  }
 }
 
 function lowerValueHotel() {
@@ -153,6 +149,7 @@ console.log('Ridgewood: ' + valueRidgewood());
 console.log('Menor valor: ' + lowerValueHotel());
 console.log('Melhor opcao de hotel: ' + checkEqualValue());
 
+//cliente , datainicial, datafinal
 function getCheapestHotel(input) {
   //DO NOT change the function's name.
   return 'Cheapest hotel name';
