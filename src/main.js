@@ -43,10 +43,10 @@ date.toLocaleDateString('en-US', options); //Padrão americano
 
 // ------- Funcao usada para calcular a diferença de dias
 function calculateDateDiff() {
-  let dataInicial = new Date('2009-03-13');
-  let dataFinal = new Date('2009-03-14');
+  let initialDate = new Date('2009-03-13');
+  let finalDate = new Date('2009-03-14');
 
-  let diffInTime = Math.abs(dataFinal - dataInicial); // Math.abs usado para transformar o resultado em em absoluto, pois o resultado seria negativo.
+  let diffInTime = Math.abs(finalDate - initialDate); // Math.abs usado para transformar o resultado em em absoluto, pois o resultado seria negativo.
   let timeInOneDay = 1000 * 60 * 60 * 24; // Miliseguntos * segundos * minutos * horas.
   let diffInDay = diffInTime / timeInOneDay; // Exemplo:  10 milisegundos / milisegundos de um dia.
 
