@@ -37,10 +37,10 @@ const options = { weekday: 'long' };
 date.toLocaleDateString('en-US', options);
 
 function calculateDateDiff() {
-  let dataInicial = new Date('2009-03-13');
-  let dataFinal = new Date('2009-03-14');
+  let initialDate = new Date('2009-03-13');
+  let finalDate = new Date('2009-03-14');
 
-  let diffInTime = Math.abs(dataFinal - dataInicial);
+  let diffInTime = Math.abs(finalDate - initialDate);
   let timeInOneDay = 1000 * 60 * 60 * 24;
   let diffInDay = diffInTime / timeInOneDay;
 
