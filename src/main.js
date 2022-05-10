@@ -116,15 +116,26 @@ function valueRidgewood() {
 function checkEqualValue() {
   let Values = [valueLakewood(), valueBridgewood(), valueRidgewood()];
   let repeatValue = Values.slice().sort();
-  let result = [];
+  let resultRepeatValue = [];
 
   let checkValue = [Lakewood, Bridgewood, Ridgewood];
+  let resultCheck = [];
+  let result = lowerValueHotel();
 
   for (var i = 0; i < repeatValue.length - 1; i++) {
     if (repeatValue[i + 1] == repeatValue[i]) {
-      result.push(`${checkValue[i].classification}`);
+      resultRepeatValue.push(repeatValue[i]);
     }
   }
+
+  for (const props in checkValue) {
+    if (`${checkValue[props].valueTotal}` == resultRepeatValue) {
+      resultCheck.push(`${checkValue[props].classification}`);
+      result = Math.max(...resultCheck);
+    }
+  }
+
+  return result;
 }
 
 function lowerValueHotel() {
